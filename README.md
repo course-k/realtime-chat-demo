@@ -18,7 +18,7 @@ LINE ──Webhook──▶ API Gateway ──▶ Lambda ──(GraphQL mutation
 | AppSync | GraphQL API。mutation を起点に Subscription を配信 |
 | DynamoDB | `Message` の保存先 |
 | Amplify Gen2 | 上記 4 つを定義・デプロイ |
-| React + `aws-amplify` | `observeQuery` で購読し、新着を先頭に表示 |
+| React + `aws-amplify` | `observeQuery` で購読し、新着を最下部に表示 |
 
 ## 前提
 
@@ -94,7 +94,7 @@ npx ampx sandbox delete --identifier demo --profile amplify-dev
 
 ## メモ
 
-- ブラウザ → AppSync は API キー認証（`amplify_outputs.json` に含まれる。既定 30 日で失効）。
+- ブラウザ → AppSync は API キー認証（`amplify_outputs.json` に含まれる。`apiKeyAuthorizationMode.expiresInDays` で 30 日に設定）。
 - Lambda → AppSync は IAM 認証（`amplify/data/resource.ts` 末尾の `allow.resource(lineWebhook)`）。
 - シークレット（channel secret / access token）はリポジトリに含まれない。
   各自の環境に `ampx sandbox secret set` で登録する。
